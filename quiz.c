@@ -49,6 +49,11 @@ void add_question(game_t *game, char *label, char *answer, size_t dificulty) {
   q.dificulty = dificulty;
   append_question(game, q);
 }
+
+void free_game(game_t *game) {
+  free(game->question_list);
+  free(game);
+}
 int main(void) {
   game_t *g = create_game();
   add_question(g, "test", "test", 1);
@@ -58,7 +63,7 @@ int main(void) {
 
   printf("%s\n", g->question_list[0].label);
   printf("%s\n", g->question_list[1].label);
+  free_game(g);
 
-  free(g);
   return EXIT_SUCCESS;
 }
