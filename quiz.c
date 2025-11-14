@@ -29,7 +29,11 @@ game_t *create_game() {
   return new;
 }
 
-void append_question(game_t *game, question_t q) {
+void add_question(game_t *game, char *label, char *answer, size_t dificulty) {
+  question_t q;
+  q.label = label;
+  q.answer = answer;
+  q.dificulty = dificulty;
   question_t *p = realloc(game->question_list,
                           sizeof(question_t) * (game->question_count + 1));
   if (!p) {
@@ -40,14 +44,6 @@ void append_question(game_t *game, question_t q) {
   *(game->question_list + game->question_count) = q;
 
   game->question_count++;
-}
-
-void add_question(game_t *game, char *label, char *answer, size_t dificulty) {
-  question_t q;
-  q.label = label;
-  q.answer = answer;
-  q.dificulty = dificulty;
-  append_question(game, q);
 }
 
 void free_game(game_t *game) {
